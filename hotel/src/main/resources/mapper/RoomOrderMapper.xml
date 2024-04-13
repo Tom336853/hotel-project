@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wn.demo.mapper.RoomOrderMapper">
+
+    <select id="selectAll" resultType="com.wn.demo.pojo.RoomOrder" parameterType="com.wn.demo.pojo.RoomOrder">
+        select
+        *
+        from room_order
+        <where>
+            <if test="userId!=null and userId!=''">
+                userId=#{userId}
+            </if>
+        </where>
+        order by createTime desc
+    </select>
+
+    <select id="selectAll2" resultType="com.wn.demo.pojo.RoomOrder" parameterType="com.wn.demo.pojo.RoomOrder">
+        select
+        *
+        from room_order where userId=#{userId}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from room_order where id=#{id}
+    </delete>
+
+    <insert id="add" parameterType="com.wn.demo.pojo.RoomOrder">
+        insert into room_order(
+            orderNo,
+            roomNo,
+            userId,
+            startTime,
+            endTime,
+            customerName,
+            customerPhone,
+            price,
+            status,
+            createTime
+            )
+        values(#{orderNo},#{roomNo},#{userId},#{startTime},#{endTime},#{customerName},#{customerPhone},#{price},'已预约',NOW())
+    </insert>
+
+    <insert id="add2" parameterType="com.wn.demo.pojo.RoomOrder">
+        insert into room_order(
+            orderNo,
+            roomNo,
+            userId,
+            startTime,
+            endTime,
+            customerName,
+            customerPhone,
+            price,
+            status,
+            createTime,
+            customerIdcard
+            )
+        values(#{orderNo},#{roomNo},#{userId},#{startTime},#{endTime},#{customerName},#{customerPhone},#{price},'已完成',NOW(),#{customerIdcard})
+    </insert>
+
+    <update id="update" parameterType="com.wn.demo.pojo.RoomOrder">
+        update room_order set status=#{status},customerIdcard=#{customerIdcard}
+        where id = #{id}
+    </update>
+
+    <select id="selectOne" resultType="com.wn.demo.pojo.RoomOrder" parameterType="java.lang.Integer">
+        select
+        *
+        from room_order where id=#{id}
+    </select>
+
+</mapper>

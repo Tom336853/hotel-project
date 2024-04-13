@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wn.demo.mapper.FinanceMapper">
+
+
+    <select id="selectAll" resultType="com.wn.demo.pojo.Finance" parameterType="com.wn.demo.pojo.Finance">
+        select
+        *
+        from finance
+        order by createTime desc
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from finance where id=#{id}
+    </delete>
+
+    <insert id="add" parameterType="com.wn.demo.pojo.Finance">
+        insert into finance(monthDate,dataType,money,info,createTime)
+        values(#{monthDate},#{dataType},#{money},#{info},NOW())
+    </insert>
+
+    <update id="update" parameterType="com.wn.demo.pojo.Finance">
+        update finance set monthDate=#{monthDate},money=#{money},dataType=#{dataType},
+        info=#{info}
+        where id = #{id}
+    </update>
+
+    <select id="selectOne" resultType="com.wn.demo.pojo.Finance" parameterType="java.lang.Integer">
+        select
+        *
+        from finance where id=#{id}
+    </select>
+
+</mapper>

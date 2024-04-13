@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wn.demo.mapper.RestaurantMapper">
+
+
+    <select id="selectAll" resultType="com.wn.demo.pojo.Restaurant">
+        select
+        *
+        from restaurant
+    </select>
+
+    <select id="selectAll2" resultType="com.wn.demo.pojo.Restaurant" parameterType="com.wn.demo.pojo.Restaurant">
+        select
+        *
+        from restaurant where 1=1
+        AND restNo not in (select restNo from restaurant_order where `status`!='已取消' and startTime=#{startTime})
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from restaurant where id=#{id}
+    </delete>
+
+    <insert id="add" parameterType="com.wn.demo.pojo.Restaurant">
+        insert into restaurant(name,restNo,peopleNumber,restImg,restDesc,restPrice)
+        values(#{name},#{restNo},#{peopleNumber},#{restImg},#{restDesc},#{restPrice})
+    </insert>
+
+    <update id="update" parameterType="com.wn.demo.pojo.Restaurant">
+        update restaurant set name=#{name},restNo=#{restNo},peopleNumber=#{peopleNumber},
+        restImg=#{restImg},restDesc=#{restDesc},restPrice=#{restPrice}
+        where id = #{id}
+    </update>
+
+    <select id="selectOne" resultType="com.wn.demo.pojo.Restaurant" parameterType="java.lang.Integer">
+        select
+        *
+        from restaurant where id=#{id}
+    </select>
+
+    <select id="selectByRestNo" resultType="com.wn.demo.pojo.Restaurant" parameterType="java.lang.String">
+        select
+        *
+        from restaurant where restNo=#{restNo}
+    </select>
+
+</mapper>

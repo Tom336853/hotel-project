@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wn.demo.mapper.EmpMapper">
+
+
+    <select id="selectAll" resultType="com.wn.demo.pojo.Emp" parameterType="com.wn.demo.pojo.Emp">
+        select
+        *
+        from emp
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from emp where id=#{id}
+    </delete>
+
+    <insert id="add" parameterType="com.wn.demo.pojo.Emp">
+        insert into emp(username,empNo,age,sex,salary,subsidy,socialSecurity,dateTime)
+        values(#{username},#{empNo},#{age},#{sex},#{salary},#{subsidy},#{socialSecurity},NOW() )
+    </insert>
+
+    <update id="update" parameterType="com.wn.demo.pojo.Emp">
+        update emp set `username`=#{username},age=#{age},empNo=#{empNo},
+        `sex`=#{sex},salary=#{salary},subsidy=#{subsidy},socialSecurity=#{socialSecurity}
+        where id=#{id}
+    </update>
+
+    <select id="selectOne" resultType="com.wn.demo.pojo.Emp" parameterType="java.lang.Integer">
+        select
+        *
+        from emp where id=#{id}
+    </select>
+
+    <select id="selectByNo" resultType="com.wn.demo.pojo.Emp" parameterType="java.lang.String">
+        select
+        *
+        from emp where empNo=#{empNo} limit 1
+    </select>
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wn.demo.mapper.RoomMapper">
+
+    <select id="selectAll" resultType="com.wn.demo.pojo.Room" parameterType="com.wn.demo.pojo.Room">
+        select *,IFNULL((select `status` from room_order where roomNo=a.roomNo and
+        startTime=#{startTime} and status!='已取消'),'空闲') AS status from room a
+    </select>
+
+    <select id="selectAll2" resultType="com.wn.demo.pojo.Room" parameterType="com.wn.demo.pojo.Room">
+        select
+        *
+        from room where 1=1
+        <if test="roomType!=null and roomType!=''">
+            and roomType = #{roomType}
+        </if>
+        AND roomNo not in (select roomNo from room_order where `status`!='已取消' and ((
+        startTime &gt; #{startTime} AND startTime &lt; #{endTime})
+        OR (startTime &lt; #{startTime} AND endTime &gt;= #{endTime})
+        OR (endTime &gt; #{startTime} AND endTime &lt;= #{endTime})))
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from room where id=#{id}
+    </delete>
+
+    <insert id="add" parameterType="com.wn.demo.pojo.Room">
+        insert into room(roomType,roomNo,roomImg,roomDesc,roomPrice)
+        values(#{roomType},#{roomNo},#{roomImg},#{roomDesc},#{roomPrice})
+    </insert>
+
+    <update id="update" parameterType="com.wn.demo.pojo.Room">
+        update room set roomType=#{roomType},roomNo=#{roomNo},roomImg=#{roomImg},
+        roomDesc=#{roomDesc},roomPrice=#{roomPrice}
+        where id = #{id}
+    </update>
+
+    <select id="selectOne" resultType="com.wn.demo.pojo.Room" parameterType="java.lang.Integer">
+        select
+        *
+        from room where id=#{id}
+    </select>
+
+    <select id="selectByRoomNo" resultType="com.wn.demo.pojo.Room" parameterType="java.lang.String">
+        select
+        *
+        from room where roomNo=#{roomNo}
+    </select>
+
+</mapper>

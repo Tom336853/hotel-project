@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wn.demo.mapper.AdminMapper">
+
+    <select id="findByAdminName" resultType="com.wn.demo.pojo.Admin" parameterType="java.lang.String">
+        select * from admin where `name`=#{name}
+    </select>
+
+    <select id="selectAll" resultType="com.wn.demo.pojo.Admin" parameterType="com.wn.demo.pojo.Admin">
+        select
+        *
+        from admin
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from admin where id=#{id}
+    </delete>
+
+    <insert id="add" parameterType="com.wn.demo.pojo.Admin">
+        insert into admin(name,password,dataType)
+        values(#{name},#{password},#{dataType})
+    </insert>
+
+    <update id="update" parameterType="com.wn.demo.pojo.Admin">
+        update admin set name=#{name},dataType=#{dataType}
+        <if test="password != null and password != ''">
+            ,password=#{password}
+        </if>
+        where id = #{id}
+    </update>
+
+    <select id="selectOne" resultType="com.wn.demo.pojo.Admin" parameterType="java.lang.Integer">
+        select
+        *
+        from admin where id=#{id}
+    </select>
+
+</mapper>

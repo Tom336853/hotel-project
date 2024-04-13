@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wn.demo.mapper.ProductMapper">
+
+
+    <select id="selectAll" resultType="com.wn.demo.pojo.Product" parameterType="com.wn.demo.pojo.Product">
+        select
+        *
+        from product
+        order by createTime desc
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from product where id=#{id}
+    </delete>
+
+    <insert id="add" parameterType="com.wn.demo.pojo.Product">
+        insert into product(name,content,number,price,director,createTime)
+        values(#{name},#{content},#{number},#{price},#{director},NOW())
+    </insert>
+
+    <update id="update" parameterType="com.wn.demo.pojo.Product">
+        update product set name=#{name},number=#{number},content=#{content},
+        price=#{price},director=#{director}
+        where id = #{id}
+    </update>
+
+    <select id="selectOne" resultType="com.wn.demo.pojo.Product" parameterType="java.lang.Integer">
+        select
+        *
+        from product where id=#{id}
+    </select>
+
+</mapper>
