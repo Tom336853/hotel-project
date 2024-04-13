@@ -8,15 +8,15 @@
 
 ## 项目技术栈
 
-###前端
+### 前端
 HTML+cSS + JavaScript三件套
 React开发框架
 
-###后端
+### 后端
 JAVA编程语言
 Spring+SpringMvc+Mybatis
 MYSQL
 Junit测试
 
-##项目时间
+## 项目时间
 2023.3-2023.6
