@@ -1,5 +1,8 @@
 # 酒店管理系统
 
+## 代码
+代码部分见master分支
+
 ## 项目架构
 ![image](https://github.com/Tom336853/hotel-project/assets/102420142/69fc8bfe-5cd6-436d-ad7a-42b3dd805c4f)
 
